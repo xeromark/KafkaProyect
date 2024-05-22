@@ -1,21 +1,9 @@
-from flask import Flask, jsonify, request
-from aiokafka import AIOKafkaProducer
-import asyncio
-import requests
-import json
+from kafka import KafkaProducer
 
 
-
-async def send_one(mensaje):
-    producer = AIOKafkaProducer(
-        bootstrap_servers='localhost:9092')
-    await producer.start()
-    try:
-        await producer.send_and_wait("pedidos", mensaje.encode())
-    finally:
-        await producer.stop()
-
-
+producer = KafkaProducer(bootstrap_servers='localhost:9092')
+producer.send('pedidos', b'some_message_bytes')
+producer.flush()
 
 
 def extraerDatos():
@@ -24,4 +12,3 @@ def extraerDatos():
         # Lee cada línea del archivo e imprímela
         for linea in archivo:
             asyncio.run(send_one(linea))
-extraerDatos()

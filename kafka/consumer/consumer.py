@@ -1,17 +1,10 @@
-from aiokafka import AIOKafkaConsumer
+from kafka import KafkaConsumer
 import asyncio
 
-async def consume():
-    consumer = AIOKafkaConsumer(
-        'pedidos', '__consumer_offsets',
-        bootstrap_servers='localhost:9092')
-    await consumer.start()
-    try:
-        
-        async for msg in consumer:
-            print("consumed: ", msg.topic, msg.partition, msg.offset,
-                  msg.key, msg.value, msg.timestamp)
-    finally:
-        await consumer.stop()
+consumer = KafkaConsumer('pedidos',
+                         group_id='my-group',
+                         bootstrap_servers=['localhost:9092'])
+for message in consumer:
+    print(message)
 
-asyncio.run(consume())
+

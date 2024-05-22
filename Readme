@@ -1,4 +1,6 @@
 Info extraida de: https://github.com/Naikelin/async-events-kafka/tree/main/1%20-%20Setups%20and%20basics/3%20-%20Basics
+kafka-python: https://kafka-python.readthedocs.io/en/master/usage.html#kafkaconsumer
+
 
 Para levantar los requerimientos de python en docker:
 
