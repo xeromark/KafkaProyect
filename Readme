@@ -1,4 +1,6 @@
 Info extraida de: https://github.com/Naikelin/async-events-kafka/tree/main/1%20-%20Setups%20and%20basics/3%20-%20Basics
+kafka-python: https://kafka-python.readthedocs.io/en/master/usage.html#kafkaconsumer
+
 
 Para levantar los requerimientos de python en docker:
 
@@ -24,3 +26,4 @@ kafka-console-consumer.sh --bootstrap-server Kafka:9092 --topic pedidos  //crear
 kafka-console-producer.sh --bootstrap-server Kafka:9092 --topic pedidos  //crear producer con canal en pedidos
 
 kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic pedidos --config retention.bytes=50
+
