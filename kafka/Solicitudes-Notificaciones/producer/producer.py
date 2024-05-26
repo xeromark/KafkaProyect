@@ -1,7 +1,15 @@
+from flask import Flask, jsonify, request
 from kafka import KafkaProducer
 import json
 
-producer = KafkaProducer(bootstrap_servers='localhost:9092')
+app = Flask(__name__)
+
+@app.route("/data/all", methods=['GET'])
+def get_all_pedidos():
+    data = request.get_data().decode("utf-8")
+    print(data)
+    
+#producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 def ParseToJson(linea):     # Estructura el string como un json, retorna un string con formato json
     elementos = linea.rstrip().split("|")
@@ -13,9 +21,6 @@ def ParseToJson(linea):     # Estructura el string como un json, retorna un stri
     
 
     return json.dumps(data)
-
-
-
 
 
 def extraerDatos():
@@ -30,7 +35,7 @@ def extraerDatos():
                 c+=1
             else:
                 break
-extraerDatos()
+#extraerDatos()
 
 
-
+get_all_pedidos()
