@@ -18,7 +18,6 @@ def get_pedido():
 """
 
 
-
 @app.route("/data", methods = ['POST'])
 def crear_pedido():
     data = request.get_data().decode("utf-8")
