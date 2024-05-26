@@ -9,8 +9,13 @@ def get_all_pedidos():
     data = request.get_data().decode("utf-8")
     print(data)
     
-#producer = KafkaProducer(bootstrap_servers='localhost:9092')
+producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
+producer.send('pedidos', "Mensaje")
+producer.flush()
+
+
+"""
 def ParseToJson(linea):     # Estructura el string como un json, retorna un string con formato json
     elementos = linea.rstrip().split("|")
     
@@ -39,3 +44,4 @@ def extraerDatos():
 
 
 get_all_pedidos()
+"""
