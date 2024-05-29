@@ -1,0 +1,6 @@
+Flask
+kafka-python
+watchdog
+json
+time
+logging

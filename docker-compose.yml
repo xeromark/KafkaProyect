@@ -1,14 +1,33 @@
-version: "4"
+version: "5"
 services:
-  zookeeper:
-    image: 'bitnami/zookeeper:latest'
-    container_name: zookeeper
+  solicitudes:
+    image: python:latest
+    container_name: solicitudes
+    volumes:
+      - ./kafka/Solicitudes-Notifiaciones/producer:/kafka/Solicitudes-Notifiaciones/producer
+    working_dir: ./kafka/Solicitudes-Notifiaciones/producer
+    command: /bin/bash -c "./start.sh"
+    restart: always
 
-    ports:
-      - '2181:2181'
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-    
+  notificaciones:
+    image: python:latest
+    container_name: notificaciones
+    volumes:
+      - ./kafka/Solicitudes-Notifiaciones/consumer:/kafka/Solicitudes-Notifiaciones/consumer
+    working_dir: ./kafka/Solicitudes-Notifiaciones/consumer
+    command: /bin/bash -c "./start.sh"
+    restart: always
+
+  procesamiento:
+    image: python:latest
+    container_name: procesamiento
+    volumes:
+      - ./kafka/Procesamiento:/kafka/Procesamiento
+    working_dir: ./kafka/Procesamiento
+    command: /bin/bash -c "./start.sh"
+    restart: always
+
+
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: Kafka
@@ -20,6 +39,4 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper
     restart: always
