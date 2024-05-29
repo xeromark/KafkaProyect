@@ -24,7 +24,7 @@ def crear_pedido():
     print(data)
     #pedidos.append(data)
     # Paso 1: Leer el archivo JSON
-    with open('data/datos.json', 'w') as archivo:
+    with open('kafka/Solicitudes-Notificaciones/producer/datos.json', 'w') as archivo:
         json.dump(json.loads(data), archivo, indent=4)
     return data, 201
 

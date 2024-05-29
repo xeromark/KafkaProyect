@@ -13,12 +13,12 @@ for _ in range(50):
     y.append(delta)
 
 # Calculate percentiles
-percentiles = np.percentile(y, [50, 75, 95, 100])
+percentiles = np.percentile(y, [50,65,80,95,100])
 
 
 # plot
-plt.plot([50, 75, 95, 100], percentiles, label='First Line')
-plt.ylim(0, 5)
+plt.plot([50,65,80,95,100], percentiles, label='Experimento 1' , marker='x', color='b')
+plt.ylim(0, 7)
 
 # Add percentiles to the plot
 
