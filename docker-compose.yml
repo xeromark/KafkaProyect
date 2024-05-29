@@ -1,32 +1,32 @@
-version: "5"
+
 services:
-  solicitudes:
-    image: python:latest
-    container_name: solicitudes
-    volumes:
-      - ./kafka/Solicitudes-Notifiaciones/producer:/kafka/Solicitudes-Notifiaciones/producer
-    working_dir: ./kafka/Solicitudes-Notifiaciones/producer
-    command: /bin/bash -c "./start.sh"
-    restart: always
-
-  notificaciones:
-    image: python:latest
-    container_name: notificaciones
-    volumes:
-      - ./kafka/Solicitudes-Notifiaciones/consumer:/kafka/Solicitudes-Notifiaciones/consumer
-    working_dir: ./kafka/Solicitudes-Notifiaciones/consumer
-    command: /bin/bash -c "./start.sh"
-    restart: always
-
   procesamiento:
-    image: python:latest
-    container_name: procesamiento
-    volumes:
-      - ./kafka/Procesamiento:/kafka/Procesamiento
-    working_dir: ./kafka/Procesamiento
-    command: /bin/bash -c "./start.sh"
+    build: 
+      context: ./kafka/Procesamiento
+      dockerfile: Dockerfile
+    container_name: Procesamiento
+    depends_on:
+      - kafka
     restart: always
+  
+  consumer:
+    build: 
+      context: ./kafka/Solicitudes-Notificaciones/consumer
+      dockerfile: Dockerfile
+    container_name: Procesamiento
+    depends_on:
+      - kafka
+    restart: always
+  
 
+  producer:
+    build: 
+      context: ./kafka/Solicitudes-Notificaciones/producer
+      dockerfile: Dockerfile
+    container_name: Procesamiento
+    depends_on:
+      - kafka
+    restart: always
 
   kafka:
     image: 'bitnami/kafka:latest'

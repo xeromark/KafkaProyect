@@ -1,6 +1,5 @@
-# Made with ChatGPT
 #!/bin/bash
-chmod +x start.sh
+# Made with ChatGPT
 # Actualizar pip
 pip install --upgrade pip
 

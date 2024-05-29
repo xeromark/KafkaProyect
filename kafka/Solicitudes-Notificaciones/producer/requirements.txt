@@ -1,0 +1,5 @@
+Flask
+kafka-python
+watchdog
+time
+logging
