@@ -25,7 +25,7 @@ plt.ylim(0, 5)
 
 plt.xlabel('Percentil')
 plt.ylabel('Latencia en m/s')
-plt.title('Interesting Graph\nCheck it out')
+plt.title('Metrica de Datos')
 plt.legend()
 plt.show()
 
