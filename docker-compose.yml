@@ -1,40 +1,8 @@
-<<<<<<< HEAD
-
-services:
-  procesamiento:
-    build: 
-      context: ./kafka/Procesamiento
-      dockerfile: Dockerfile
-    container_name: Procesamiento
-    depends_on:
-      - kafka
-    restart: always
-  
-  consumer:
-    build: 
-      context: ./kafka/Solicitudes-Notificaciones/consumer
-      dockerfile: Dockerfile
-    container_name: Procesamiento
-    depends_on:
-      - kafka
-    restart: always
-  
-
-  producer:
-    build: 
-      context: ./kafka/Solicitudes-Notificaciones/producer
-      dockerfile: Dockerfile
-    container_name: Procesamiento
-    depends_on:
-      - kafka
-    restart: always
-=======
 version: "4"
 services:
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
->>>>>>> parent of 7bc413f (Ayuda)
 
     ports:
       - '2181:2181'
