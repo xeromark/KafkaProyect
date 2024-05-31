@@ -3,14 +3,13 @@ from kafka import KafkaProducer
 import json
 import os
 
-with open('buffer.txt', 'w') as file:
-       file.write('0')
-       pass
+if not os.path.exists('buffer.txt'):
+    with open('buffer.txt', 'w') as file:
+        file.write('0')
 
 app = Flask(__name__)
 @app.route("/")
 def index():
-   
     return "¡Bienvenido a la aplicación de pedidos!"
 
 producer = KafkaProducer(bootstrap_servers='localhost:9092') # Arreglar!
@@ -62,5 +61,7 @@ def extraerDatos():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
+    with open('buffer.txt', 'w') as file:
+        file.write('0')
 
     
