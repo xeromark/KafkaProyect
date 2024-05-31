@@ -43,9 +43,6 @@ class MyEventHandler(FileSystemEventHandler):
             print(f"Archivo modificado: {event.src_path}")
 
 if __name__ == "__main__":
-    id = 0
-    with open("counter.txt", "w") as file:
-        file.write(str(id))
     logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
     path = sys.argv[1] if len(sys.argv) > 1 else "."
     event_handler = MyEventHandler()
