@@ -1,4 +1,4 @@
-from kafka import KafkaProducer, KafkaConsumer
+from kafka import KafkaConsumer
 
 consumer = KafkaConsumer('finalizados',
                          group_id='my-group',
