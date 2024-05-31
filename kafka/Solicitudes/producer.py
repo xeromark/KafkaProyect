@@ -3,12 +3,14 @@ from kafka import KafkaProducer
 import json
 import os
 
+with open('buffer.txt', 'w') as file:
+       file.write('0')
+       pass
+
 app = Flask(__name__)
 @app.route("/")
 def index():
-    with open('buffer.txt', 'w') as file:
-        file.write('0')
-        pass
+   
     return "¡Bienvenido a la aplicación de pedidos!"
 
 producer = KafkaProducer(bootstrap_servers='localhost:9092') # Arreglar!
