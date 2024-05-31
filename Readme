@@ -16,8 +16,10 @@ docker rmi -f $(docker images -q)       //Borrar todos las imagenes
 
 
 Comandos de Kafka:
+Logica= recibido -> preparando -> entregando -> finalizado
 
-kafka-topics.sh --bootstrap-server Kafka:9092 --create --topic pedidos  
+
+kafka-topics.sh --bootstrap-server Kafka:9092 --create --topic entregando  
 kafka-topics.sh --describe --bootstrap-server Kafka:9092 --topic pedidos    // Describir topico
 kafka-topics.sh --list --bootstrap-server Kafka:9092                    //lista de topicos
 kafka-consumer-groups.sh --bootstrap-server Kafka:9092 --list   //Lista de grupos
