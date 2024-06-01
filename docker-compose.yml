@@ -1,61 +1,30 @@
+version: "3.7"
+
 
 services:
-
-  notificaciones:
-    image: python:3.11
-    volumes:
-      - ./kafka/Notificaciones:/app
-    working_dir: /app
-    stdin_open: true
-    command: >
-      bash -c "pip3 install -r requerimientos.txt && python3 -u consumer.py"  
-    depends_on:
-      - kafka
-    networks:
-      - default
-  
-  procesamiento:
-    image: python:3.11
-    volumes:
-      - ./kafka/Procesamiento:/app
-    working_dir: /app
-    stdin_open: true
-    command: >
-      bash -c "pip3 install -r requerimientos.txt && python3 -u producer-consumer.py"  
-    depends_on:
-      - kafka
-    networks:
-      - default
-
-  solicitudes:
-    image: python:3.11
-    volumes:
-      - ./kafka/Solicitudes:/app
-    working_dir: /app
-    stdin_open: true
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    container_name: zookeeper
     ports:
-      - '5001:5001'
-    command: >
-      bash -c "pip3 install -r requerimientos.txt && python3 -u producer.py"  
-    depends_on:
-      - kafka
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
-      - default
+      - kafka-net
 
   kafka:
     image: 'bitnami/kafka:latest'
-    container_name: Kafka
+    container_name: kafka
     ports:
       - '9092:9092'
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
-    restart: always
+    depends_on:
+      - zookeeper
     networks:
-      - default
-networks:
-  default:
-    driver: bridge
+      - kafka-net
+    restart: always
