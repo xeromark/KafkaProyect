@@ -1,35 +1,46 @@
-version: "4"
+
 services:
 
   notificaciones:
-    build: 
-      context: ./dockerfiles
-      dockerfile: notificaciones.dockerfile
+    image: python:3.11
     volumes:
       - ./kafka/Notificaciones:/app
     working_dir: /app
+    stdin_open: true
+    command: >
+      bash -c "pip3 install -r requerimientos.txt && python3 -u consumer.py"  
     depends_on:
       - kafka
+    networks:
+      - default
   
   procesamiento:
-    build: 
-      context: ./dockerfiles
-      dockerfile: procesamiento.dockerfile
+    image: python:3.11
     volumes:
       - ./kafka/Procesamiento:/app
     working_dir: /app
+    stdin_open: true
+    command: >
+      bash -c "pip3 install -r requerimientos.txt && python3 -u producer-consumer.py"  
     depends_on:
       - kafka
+    networks:
+      - default
 
   solicitudes:
-    build: 
-      context: ./dockerfiles
-      dockerfile: solicitudes.dockerfile
+    image: python:3.11
     volumes:
       - ./kafka/Solicitudes:/app
     working_dir: /app
+    stdin_open: true
+    ports:
+      - '5001:5001'
+    command: >
+      bash -c "pip3 install -r requerimientos.txt && python3 -u producer.py"  
     depends_on:
       - kafka
+    networks:
+      - default
 
   kafka:
     image: 'bitnami/kafka:latest'
@@ -43,3 +54,8 @@ services:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
     restart: always
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
