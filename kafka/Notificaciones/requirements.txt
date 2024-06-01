@@ -1,3 +1,0 @@
-Flask
-kafka-python==2.0.1
-six
