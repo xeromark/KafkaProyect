@@ -1,25 +1,70 @@
-version: "4"
+version: "3.7"
+
 services:
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
-
     ports:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-    
+    networks:
+      - kafka-net
+
   kafka:
     image: 'bitnami/kafka:latest'
-    container_name: Kafka
+    container_name: kafka
     ports:
       - '9092:9092'
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+    networks:
+      - kafka-net
     restart: always
+
+  solicitudes:
+    build:
+      context: ./kafka/Solicitudes
+      dockerfile: solicitudes.dockerfile
+    volumes:
+      - ./kafka/Solicitudes:/app
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    ports:
+      - '5001:5001'
+    networks:
+      - kafka-net
+
+  notificaciones:
+    build:
+      context: ./kafka/Notificaciones
+      dockerfile: notificaciones.dockerfile
+    volumes:
+      - ./kafka/Notificaciones:/app
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
+
+  procesamiento:
+    build:
+      context: ./kafka/Procesamiento
+      dockerfile: procesamiento.dockerfile
+    volumes:
+      - ./kafka/Procesamiento:/app
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge
