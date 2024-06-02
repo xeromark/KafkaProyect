@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 
 consumer = KafkaConsumer('finalizados',
                          group_id='my-group',
-                         bootstrap_servers=['localhost:9092'])
+                         bootstrap_servers=['172.16.0.20:9092'])
 
 
 for mensaje in consumer:

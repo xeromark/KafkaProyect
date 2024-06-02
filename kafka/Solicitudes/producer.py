@@ -12,7 +12,7 @@ app = Flask(__name__)
 def index():
     return "¡Bienvenido a la aplicación de pedidos!"
 
-producer = KafkaProducer(bootstrap_servers='localhost:9092') # Arreglar!
+producer = KafkaProducer(bootstrap_servers='172.16.0.20:9092') # Arreglar!
 # Check if buffer.txt exists
 
     
@@ -60,7 +60,7 @@ def extraerDatos():
 #extraerDatos()
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5001, host='172.16.0.12')
     with open('buffer.txt', 'w') as file:
         file.write('0')
 
