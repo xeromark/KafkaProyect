@@ -2,11 +2,11 @@ from kafka import KafkaProducer, KafkaConsumer
 import json
 import time
 
-producer = KafkaProducer(bootstrap_servers='localhost:9092')
+producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
 consumer = KafkaConsumer('pedidos',
                          group_id='my-group',
-                         bootstrap_servers=['localhost:9092'])
+                         bootstrap_servers=['kafka:9092'])
 
 
 def AgregarEstado(mensaje): # Le agrega o cambia el estado del mensaje
