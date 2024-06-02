@@ -17,9 +17,9 @@ with open('pedidos', 'r') as archivo:
     c = 0
     for linea in archivo:
         response = requests.post(url, data=linea, headers=headers)
-        print(c)
+        #print(c)
         c+=1
-
+"""
         # Comprobar el estado de la respuesta
         if response.status_code == 201:
             print('Petición exitosa')
@@ -27,3 +27,4 @@ with open('pedidos', 'r') as archivo:
         else:
             print('Error en la petición:', response.status_code)
             print('Detalle:', response.text)
+"""
