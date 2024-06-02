@@ -29,6 +29,7 @@ def ParseToJson(linea):     # Estructura el string como un json, retorna un stri
     data["precio"] = elementos[1]
 
     data["creacion"] = time.time()
+    data["te"] = data["creacion"] # Se agrega su tiempo estimado de preparacion o entrega, te = tiempo estimado
 
     
     return json.dumps(data)

@@ -16,9 +16,10 @@ with open('pedidos', 'r') as archivo:
     # Lee cada línea del archivo e imprímela
     c = 0
     for linea in archivo:
-        response = requests.post(url, data=linea, headers=headers)
-        #print(c)
-        c+=1
+        while True:
+            response = requests.post(url, data=linea, headers=headers)
+            print(c)
+            c+=1
 """
         # Comprobar el estado de la respuesta
         if response.status_code == 201:
