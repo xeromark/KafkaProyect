@@ -1,15 +1,21 @@
 
 from kafka import KafkaConsumer
+import json
+import time
 
 consumer = KafkaConsumer('finalizados',
                          group_id='my-group',
                          bootstrap_servers=['kafka:9092'])
 
 
+
+
 for mensaje in consumer:
-    print(mensaje.value.decode('utf-8'))
+    data = json.loads(mensaje.value.decode('utf-8')) #Pasamos el mensaje a un diccionario
+
+    print( json.dumps(data) + " Delay: " + str(time.time() - data["te"]))
 
 
 
 
-print("hello")
+
