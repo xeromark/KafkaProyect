@@ -12,7 +12,8 @@ app = Flask(__name__)
 def index():
     return "¡Bienvenido a la aplicación de pedidos!"
 
-producer = KafkaProducer(bootstrap_servers='kafka:9092')
+producer = KafkaProducer(bootstrap_servers='localhost:9092') # Arreglar!
+# Check if buffer.txt exists
 
     
 def ParseToJson(linea):     # Estructura el string como un json, retorna un string con formato json
@@ -59,7 +60,7 @@ def extraerDatos():
 #extraerDatos()
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, port=5001)
     with open('buffer.txt', 'w') as file:
         file.write('0')
 
