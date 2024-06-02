@@ -5,6 +5,7 @@ services:
     volumes:
       - ./kafka/Notificaciones:/app
     working_dir: /app
+    stdin_open: true
     command: bash -c "pip install -r requerimientos.txt && python consumer.py"
     depends_on:
       - kafka
@@ -19,7 +20,6 @@ services:
       - ./kafka/Procesamiento:/app
     working_dir: /app
     stdin_open: true
-    tty: true
     command: bash -c "pip install -r requerimientos.txt && python producer-consumer.py"
     depends_on:
       - kafka
@@ -34,7 +34,6 @@ services:
       - ./kafka/Solicitudes:/app
     working_dir: /app
     stdin_open: true
-    tty: true
     command: bash -c "pip install -r requerimientos.txt && python producer.py"
     ports:
       - '5001:5001'
