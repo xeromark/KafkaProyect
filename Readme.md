@@ -10,7 +10,7 @@ Comandos de docker:
 
 docker run --name kafka bitnami/kafka:latest		// correr kafka
 docker compose up
-docker exec -it Kafka bash      
+docker exec -it kafka bash      
 
 docker rmi -f $(docker images -q)       //Borrar todos las imagenes
 
