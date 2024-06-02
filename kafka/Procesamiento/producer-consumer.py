@@ -19,27 +19,27 @@ def CambiarEstado(mensaje): # Le agrega o cambia el estado del mensaje
     if 'estado' in data:    
         if data['estado'] == 'Recibido':    # Si el estado es recibido, pongale Preparando
             data['estado'] = 'Preparando'
-            data["te"] += random.randint(1, 5)
-            print(data)
+            data["te"] += random.randint(10, 20)
+            #print(data)
             return json.dumps(data)
 
         elif data['estado'] == 'Preparando' and data["te"] <= time.time():    # Si el estado es Preparando, pongale Entregando
             data['estado'] = 'Entregando'
-            data["te"] +=  random.randint(1, 5)
-            print(data)
+            data["te"] +=  random.randint(10, 20)
+            #print(data)
             return json.dumps(data)
 
         elif data['estado'] == 'Entregando' and data["te"] <= time.time():    # Si el estado es Entregando, pongale Finalizado
             data['estado'] = 'Finalizado'
             data["meta"] = numeropedidos - 1 # Actualizar
-            print(data)
+            #print(data)
             return json.dumps(data)
     else:
         numeropedidos+=1
         data["estado"] = "Recibido" # De NO existir un estado, pongale recibido
         data["meta"] = 0 # Metadata para avisar cuantos pedidos se hicieron ,mas que todo para hacer las metricas
 
-        print(data)
+        #print(data)
     return json.dumps(data) #Retorna un string
 
 for mensaje in consumer:
