@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from kafka import KafkaProducer
+import time
 import json
 import os
 
@@ -27,8 +28,13 @@ def ParseToJson(linea):     # Estructura el string como un json, retorna un stri
     data["nombre"] = elementos[0]
     data["precio"] = elementos[1]
 
+    data["creacion"] = time.time()
+
     
     return json.dumps(data)
+
+
+
 
 @app.route("/data", methods = ['POST'])
 def crear_pedido():

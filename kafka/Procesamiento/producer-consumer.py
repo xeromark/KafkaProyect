@@ -26,7 +26,7 @@ for mensaje in consumer:
     data = AgregarEstado(mensaje.value.decode('utf-8')) # Se le pasa un string como parametro que agrega o cambia el estado del mensaje
     auxData = json.loads(data) # Auxiliar para data que se usa para que data siga siendo un string, mientras que aux es un json
     print(data)
-    time.sleep(1)
+    #time.sleep(1)
 
     if 'estado' in auxData:
         if auxData['estado'] == 'Recibido':    # Los recibidos se van devuelta a la cola de los pedidos
