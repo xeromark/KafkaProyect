@@ -41,29 +41,14 @@ def ParseToJson(linea):     # Estructura el string como un json, retorna un stri
 def crear_pedido():
 
     data = request.get_data().decode("utf-8") # Pasamos el archivo a texto plano
-
+    contador = 0
+    #while contador < 2000:
     producer.send('pedidos', ParseToJson(data).encode('utf-8')) # Envia la informacion
+        #contador+=1
+    
     producer.flush()
     return data, 201
 
-
-
-
-
-
-def extraerDatos():
-    # Abre el archivo en modo lectura
-    with open('pedidos', 'r') as archivo:
-        # Lee cada línea del archivo e imprímela
-        c = 0
-        for linea in archivo:
-            if c<2:
-                producer.send('pedidos', ParseToJson(linea).encode('utf-8'))
-                producer.flush()
-                c+=1
-            else:
-                break
-#extraerDatos()
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5001)

@@ -24,7 +24,7 @@ try:
     server.starttls()  # Iniciar la conexión TLS
     server.login(gmail_user, gmail_password)
     text = msg.as_string()
-    server.sendmail(gmail_user, "ignacio.marambio_z@mail.udp.cl", text)
+    server.sendmail(gmail_user, "omar.marca@mail.udp.cl", text)
     server.quit()
 
     print("Correo enviado exitosamente")
